@@ -1,0 +1,22 @@
+Paciente:
+    cadastrar
+    agendar consulta
+    cancelar consulta
+
+Médico:
+    cadastrar
+    ver consultas marcadas
+    cancelar consulta
+
+REGRAS paciente:
+    so pode cadastrar um cpf
+
+REGRAS médico:
+    medico sao identificados pela especialidades
+
+REGRAS agendamento
+    o paciente nao pode fazer consulta no mesmo horario
+    medico so pode fazer um paciente por horario marcado
+    avisar que nao tem tal horario disponivel - indicar outro horario
+    quando houver cancelamento - libera para outro paciente
+    medico pode realocar o horario dos pacientes para horario disponivel a sua especialidade
