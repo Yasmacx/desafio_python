@@ -26,14 +26,11 @@ def painel_paciente():
 
 
 def cadastrar_paciente():
-    cpf = int(input('Digite seu CPF:'))
-    nome = input = ('Digite seu nome:')
+    cpf = int('Digite seu CPF:')
+    nome = input('Digite seu nome:')
     nascimento = int(input('Digite sua data de nascimento:'))
 
 def agendar_consulta():
     print('='* 30)
 def agendamento_paciente():
     print('='* 30)
-
-if __name__ == "__main__":
-    painel_paciente()

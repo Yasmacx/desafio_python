@@ -1,3 +1,4 @@
+#Funcinalidades de cada entidade
 Paciente:
     cadastrar
     agendar consulta
@@ -8,10 +9,17 @@ Médico:
     ver consultas marcadas
     cancelar consulta
 
+Consulta
+    hora
+    data
+    status
+
+#Regras de negocio para cada entidade
 REGRAS paciente:
     so pode cadastrar um cpf
 
 REGRAS médico:
+    medicos sao identificados com um codigo unico
     medico sao identificados pela especialidades
 
 REGRAS agendamento
@@ -19,4 +27,25 @@ REGRAS agendamento
     medico so pode fazer um paciente por horario marcado
     avisar que nao tem tal horario disponivel - indicar outro horario
     quando houver cancelamento - libera para outro paciente
-    medico pode realocar o horario dos pacientes para horario disponivel a sua especialidade
+    medico pode realocar o horario dos pacientes para horario disponivel a sua
+
+#Atributos da entidade
+Paciente:
+    - id
+    - nome
+    - cpf
+    - data de nascimento
+
+Médico:
+    - id
+    - nome
+    - especialidade
+    - codigo do médico
+
+Consulta:
+    - id
+    - paciente_id (relacionamento)
+    - medico_id (relacionamento)
+    - data
+    - hora
+    - status
