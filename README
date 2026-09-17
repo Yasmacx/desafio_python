@@ -31,21 +31,24 @@ REGRAS agendamento
 
 #Atributos da entidade
 Paciente:
-    - id
-    - nome
-    - cpf
-    - data de nascimento
+    - id : CHAVE PRIMARIA
+    - nome : TEXTO(obrigatorio)
+    - cpf : TEXTO E UNICO
+    - data de nascimento : TEXTO/DATA
 
 Médico:
-    - id
-    - nome
-    - especialidade
-    - codigo do médico
+    - id : CHAVE PRIMARIA
+    - nome : TEXTO(obrigatorio)
+    - especialidade : TEXTO(obrigatorio)
+    - CRM = codigo do médico : TEXTO E UNICO
 
 Consulta:
-    - id
-    - paciente_id (relacionamento)
-    - medico_id (relacionamento)
-    - data
-    - hora
-    - status
+    - id : CHAVE PRIMARIA
+    - paciente : paciente_id (relacionamento)
+    - medico : medico_id (relacionamento)
+    - data : TEXTO/DATA
+    - hora : HORA
+    - status :CHECK: VALORES UNICOS: confirmado, cancelado e realizada
+
+OBS IMPORTANTE: todos os valores sao obrigatorios, toda informação armezanadas são necessarias para o processo
+do agendameanto
