@@ -1,54 +1,129 @@
-#Funcinalidades de cada entidade
-Paciente:
-    cadastrar
-    agendar consulta
-    cancelar consulta
+#  SmartClinic
 
-Médico:
-    cadastrar
-    ver consultas marcadas
-    cancelar consulta
+Sistema de gerenciamento de consultas médicas desenvolvido em Python e SQLite.
 
-Consulta
-    hora
-    data
-    status
+O projeto tem como objetivo aplicar conceitos de **lógica de programação, banco de dados relacional, CRUD, relacionamentos entre entidades e regras de negócio** em um sistema de agendamento de consultas.
 
-#Regras de negocio para cada entidade
-REGRAS paciente:
-    so pode cadastrar um cpf
+---
 
-REGRAS médico:
-    medicos sao identificados com um codigo unico
-    medico sao identificados pela especialidades
+##  Entidades do sistema
 
-REGRAS agendamento
-    o paciente nao pode fazer consulta no mesmo horario
-    medico so pode fazer um paciente por horario marcado
-    avisar que nao tem tal horario disponivel - indicar outro horario
-    quando houver cancelamento - libera para outro paciente
-    medico pode realocar o horario dos pacientes para horario disponivel a sua
+O sistema é composto por três entidades principais:
 
-#Atributos da entidade
-Paciente:
-    - id : CHAVE PRIMARIA
-    - nome : TEXTO(obrigatorio)
-    - cpf : TEXTO E UNICO
-    - data de nascimento : TEXTO/DATA
+- **Paciente**
+- **Médico**
+- **Consulta**
 
-Médico:
-    - id : CHAVE PRIMARIA
-    - nome : TEXTO(obrigatorio)
-    - especialidade : TEXTO(obrigatorio)
-    - CRM = codigo do médico : TEXTO E UNICO
+---
 
-Consulta:
-    - id : CHAVE PRIMARIA
-    - paciente : paciente_id (relacionamento)
-    - medico : medico_id (relacionamento)
-    - data : TEXTO/DATA
-    - hora : HORA
-    - status :CHECK: VALORES UNICOS: confirmado, cancelado e realizada
+##  Paciente
 
-OBS IMPORTANTE: todos os valores sao obrigatorios, toda informação armezanadas são necessarias para o processo
-do agendameanto
+### Funcionalidades
+
+- Cadastrar paciente
+- Agendar consulta
+- Cancelar consulta
+
+### Atributos
+
+| Atributo | Tipo | Regra |
+|---|---|---|
+| `id` | INTEGER | Chave primária |
+| `nome` | TEXT | Obrigatório |
+| `cpf` | TEXT | Obrigatório e único |
+| `data_nascimento` | TEXT/DATE | Obrigatório |
+
+### Regra de negócio
+
+- Cada CPF pode estar associado a apenas um paciente.
+
+---
+
+##  Médico
+
+### Funcionalidades
+
+- Cadastrar médico
+- Visualizar consultas marcadas
+- Cancelar consulta
+
+### Atributos
+
+| Atributo | Tipo | Regra |
+|---|---|---|
+| `id` | INTEGER | Chave primária |
+| `nome` | TEXT | Obrigatório |
+| `especialidade` | TEXT | Obrigatório |
+| `crm` | TEXT | Obrigatório e único |
+
+### Regras de negócio
+
+- Cada médico possui um código/CRM único.
+- O médico é identificado por sua especialidade.
+- Um médico não pode atender mais de um paciente no mesmo horário.
+
+---
+
+##  Consulta
+
+### Funcionalidades
+
+- Agendar consulta
+- Cancelar consulta
+- Alterar horário da consulta
+- Consultar status da consulta
+
+### Atributos
+
+| Atributo | Tipo | Regra |
+|---|---|---|
+| `id` | INTEGER | Chave primária |
+| `paciente_id` | INTEGER | Chave estrangeira |
+| `medico_id` | INTEGER | Chave estrangeira |
+| `data` | TEXT/DATE | Obrigatório |
+| `hora` | TEXT/TIME | Obrigatório |
+| `status` | TEXT | Obrigatório + CHECK |
+
+### Status disponíveis
+
+O status da consulta é limitado aos seguintes valores:
+
+```text
+confirmada
+cancelada
+realizada
+```
+
+---
+
+##  Regras de negócio do agendamento
+
+O sistema deve respeitar as seguintes regras:
+
+### 1. Conflito de horário do paciente
+
+Um paciente **não pode possuir duas consultas no mesmo horário**.
+
+### 2. Conflito de horário do médico
+
+Um médico **não pode possuir dois pacientes agendados para o mesmo horário**.
+
+### 3. Horário indisponível
+
+Caso o horário solicitado esteja ocupado, o sistema deverá informar que o horário não está disponível e indicar outra opção de horário.
+
+### 4. Cancelamento
+
+Quando uma consulta for cancelada, o horário deverá ficar disponível para que outro paciente possa realizar um agendamento.
+
+### 5. Realocação
+
+O médico poderá realocar uma consulta para outro horário disponível.
+
+---
+
+##  Banco de dados
+
+O projeto utiliza **SQLite** como banco de dados.
+
+As entidades possuem
