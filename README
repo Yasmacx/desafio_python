@@ -1,12 +1,12 @@
-#SmartClinic
+# SmartClinic
 
-Sistema de gerenciamento de consultas médicas desenvolvido em Python e SQLite.
+Sistema de gerenciamento de consultas médicas desenvolvido em **Python** e **SQLite**.
 
-O projeto tem como objetivo aplicar conceitos de **lógica de programação, banco de dados relacional, CRUD, relacionamentos entre entidades e regras de negócio** em um sistema de agendamento de consultas.
+O projeto tem como objetivo aplicar conceitos de **programação, banco de dados relacionais, SQL, CRUD e regras de negócio** em um sistema de agendamento de consultas.
 
 ---
 
-##Entidades do sistema
+## Entidades
 
 O sistema é composto por três entidades principais:
 
@@ -16,15 +16,15 @@ O sistema é composto por três entidades principais:
 
 ---
 
-##Paciente
+## Paciente
 
 ### Funcionalidades
 
-- Cadastrar paciente
-- Agendar consulta
-- Cancelar consulta
+- [ ] Cadastrar paciente
+- [ ] Agendar consulta
+- [ ] Cancelar consulta
 
-###Atributos
+### Atributos
 
 | Atributo | Tipo | Regra |
 |---|---|---|
@@ -33,21 +33,23 @@ O sistema é composto por três entidades principais:
 | `cpf` | TEXT | Obrigatório e único |
 | `data_nascimento` | TEXT/DATE | Obrigatório |
 
-##Regra de negócio
+### Regras de negócio
 
-- Cada CPF pode estar associado a apenas um paciente.
+- O CPF deve ser único.
+- Um CPF não pode estar associado a mais de um paciente.
+- Todos os dados necessários para o cadastro devem ser informados.
 
 ---
 
-##Médico
+## Médico
 
-###Funcionalidades
+### Funcionalidades
 
-- Cadastrar médico
-- Visualizar consultas marcadas
-- Cancelar consulta
+- [ ] Cadastrar médico
+- [ ] Visualizar consultas marcadas
+- [ ] Cancelar consulta
 
-###Atributos
+### Atributos
 
 | Atributo | Tipo | Regra |
 |---|---|---|
@@ -56,24 +58,24 @@ O sistema é composto por três entidades principais:
 | `especialidade` | TEXT | Obrigatório |
 | `crm` | TEXT | Obrigatório e único |
 
-###Regras de negócio
+### Regras de negócio
 
-- Cada médico possui um código/CRM único.
+- Cada médico possui um CRM único.
 - O médico é identificado por sua especialidade.
-- Um médico não pode atender mais de um paciente no mesmo horário.
+- Um médico não pode atender dois pacientes no mesmo horário.
 
 ---
 
-##Consulta
+## Consulta
 
-###Funcionalidades
+### Funcionalidades
 
-- Agendar consulta
-- Cancelar consulta
-- Alterar horário da consulta
-- Consultar status da consulta
+- [ ] Agendar consulta
+- [ ] Cancelar consulta
+- [ ] Alterar horário
+- [ ] Consultar status da consulta
 
-###Atributos
+### Atributos
 
 | Atributo | Tipo | Regra |
 |---|---|---|
@@ -84,46 +86,113 @@ O sistema é composto por três entidades principais:
 | `hora` | TEXT/TIME | Obrigatório |
 | `status` | TEXT | Obrigatório + CHECK |
 
-###Status disponíveis
+### Status disponíveis
 
-O status da consulta é limitado aos seguintes valores:
+O status da consulta pode assumir apenas um dos seguintes valores:
 
-```text
-confirmada
-cancelada
-realizada
+```sql
+CHECK(status IN ('confirmada', 'cancelada', 'realizada'))
 ```
 
 ---
 
-##Regras de negócio do agendamento
+## Regras de negócio do agendamento
 
-O sistema deve respeitar as seguintes regras:
+### Conflito de horário do paciente
 
-### 1. Conflito de horário do paciente
+Um paciente não pode possuir duas consultas no mesmo horário.
 
-Um paciente **não pode possuir duas consultas no mesmo horário**.
+### Conflito de horário do médico
 
-### 2. Conflito de horário do médico
+Um médico não pode possuir dois pacientes agendados para o mesmo horário.
 
-Um médico **não pode possuir dois pacientes agendados para o mesmo horário**.
+### Horário indisponível
 
-### 3. Horário indisponível
+Caso o horário solicitado esteja ocupado, o sistema deverá informar a indisponibilidade e indicar outro horário disponível.
 
-Caso o horário solicitado esteja ocupado, o sistema deverá informar que o horário não está disponível e indicar outra opção de horário.
+### Cancelamento
 
-### 4. Cancelamento
+Quando uma consulta for cancelada, o horário deverá ser liberado para um novo agendamento.
 
-Quando uma consulta for cancelada, o horário deverá ficar disponível para que outro paciente possa realizar um agendamento.
-
-### 5. Realocação
+### Realocação
 
 O médico poderá realocar uma consulta para outro horário disponível.
 
 ---
 
-##  Banco de dados
+## Banco de Dados
 
 O projeto utiliza **SQLite** como banco de dados.
 
-As entidades possuem
+### Estrutura e relacionamentos
+
+```text
+PACIENTES
+   |
+   | 1:N
+   |
+   v
+CONSULTAS
+   ^
+   |
+   | N:1
+   |
+MÉDICOS
+```
+
+### Relacionamentos
+
+- Um paciente pode possuir várias consultas.
+- Um médico pode possuir várias consultas.
+- Cada consulta pertence a um paciente.
+- Cada consulta pertence a um médico.
+
+As relações são estabelecidas através de chaves estrangeiras:
+
+```sql
+FOREIGN KEY(medico_id) REFERENCES medicos(id),
+FOREIGN KEY(paciente_id) REFERENCES pacientes(id)
+```
+
+---
+
+## Integridade dos dados
+
+O banco utiliza restrições para garantir a consistência das informações:
+
+| Restrição | Utilização |
+|---|---|
+| `PRIMARY KEY` | Identificação única dos registros |
+| `NOT NULL` | Campos obrigatórios |
+| `UNIQUE` | CPF e CRM |
+| `FOREIGN KEY` | Relacionamento entre tabelas |
+| `CHECK` | Controle dos status da consulta |
+
+---
+
+## Tecnologias
+
+- Python
+- SQLite
+- SQL
+- Git
+- GitHub
+
+---
+
+## Objetivo do projeto
+
+O **SmartClinic** está sendo desenvolvido como um projeto de estudo e portfólio para colocar em prática conhecimentos de:
+
+- Python
+- SQL
+- SQLite
+- Banco de dados relacionais
+- Modelagem de dados
+- CRUD
+- Chaves primárias e estrangeiras
+- Validação de dados
+- Regras de negócio
+- Lógica de programação
+
+O projeto será desenvolvido de forma incremental, adicionando novas funcionalidades conforme o avanço do desenvolvimento.
