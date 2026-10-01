@@ -1,4 +1,4 @@
-#  SmartClinic
+#SmartClinic
 
 Sistema de gerenciamento de consultas médicas desenvolvido em Python e SQLite.
 
@@ -6,7 +6,7 @@ O projeto tem como objetivo aplicar conceitos de **lógica de programação, ban
 
 ---
 
-##  Entidades do sistema
+##Entidades do sistema
 
 O sistema é composto por três entidades principais:
 
@@ -16,7 +16,7 @@ O sistema é composto por três entidades principais:
 
 ---
 
-##  Paciente
+##Paciente
 
 ### Funcionalidades
 
@@ -24,7 +24,7 @@ O sistema é composto por três entidades principais:
 - Agendar consulta
 - Cancelar consulta
 
-### Atributos
+###Atributos
 
 | Atributo | Tipo | Regra |
 |---|---|---|
@@ -33,21 +33,21 @@ O sistema é composto por três entidades principais:
 | `cpf` | TEXT | Obrigatório e único |
 | `data_nascimento` | TEXT/DATE | Obrigatório |
 
-### Regra de negócio
+##Regra de negócio
 
 - Cada CPF pode estar associado a apenas um paciente.
 
 ---
 
-##  Médico
+##Médico
 
-### Funcionalidades
+###Funcionalidades
 
 - Cadastrar médico
 - Visualizar consultas marcadas
 - Cancelar consulta
 
-### Atributos
+###Atributos
 
 | Atributo | Tipo | Regra |
 |---|---|---|
@@ -56,7 +56,7 @@ O sistema é composto por três entidades principais:
 | `especialidade` | TEXT | Obrigatório |
 | `crm` | TEXT | Obrigatório e único |
 
-### Regras de negócio
+###Regras de negócio
 
 - Cada médico possui um código/CRM único.
 - O médico é identificado por sua especialidade.
@@ -64,16 +64,16 @@ O sistema é composto por três entidades principais:
 
 ---
 
-##  Consulta
+##Consulta
 
-### Funcionalidades
+###Funcionalidades
 
 - Agendar consulta
 - Cancelar consulta
 - Alterar horário da consulta
 - Consultar status da consulta
 
-### Atributos
+###Atributos
 
 | Atributo | Tipo | Regra |
 |---|---|---|
@@ -84,7 +84,7 @@ O sistema é composto por três entidades principais:
 | `hora` | TEXT/TIME | Obrigatório |
 | `status` | TEXT | Obrigatório + CHECK |
 
-### Status disponíveis
+###Status disponíveis
 
 O status da consulta é limitado aos seguintes valores:
 
@@ -96,7 +96,7 @@ realizada
 
 ---
 
-##  Regras de negócio do agendamento
+##Regras de negócio do agendamento
 
 O sistema deve respeitar as seguintes regras:
 
