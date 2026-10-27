@@ -195,4 +195,8 @@ O **SmartClinic** está sendo desenvolvido como um projeto de estudo e portfóli
 - Regras de negócio
 - Lógica de programação
 
+<<<<<<< HEAD
 O projeto será desenvolvido de forma incremental, adicionando novas funcionalidades conforme o avanço do desenvolvimento.
+=======
+O projeto será desenvolvido de forma incremental, adicionando novas funcionalidades conforme o avanço do desenvolvimento.
+>>>>>>> e1e953f (fazendo funcionalidades em cadastrar paciente)

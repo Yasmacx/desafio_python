@@ -12,7 +12,7 @@ def create_table():
     cursor = conectar.cursor()
 
     cursor.execute("""
-        CREATE TABLE pacientes(
+        CREATE TABLE pacientes(]]]]
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         nome TEXT NOT NULL,
         cpf TEXT NOT NULL UNIQUE,
