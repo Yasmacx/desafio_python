@@ -4,7 +4,95 @@ Sistema de gerenciamento de consultas médicas desenvolvido em **Python** e **SQ
 
 O projeto tem como objetivo aplicar conceitos de **programação, banco de dados relacionais, SQL, CRUD e regras de negócio** em um sistema de agendamento de consultas.
 
+# Sistema
+
+## 1. Descrição
+
+O SmartClinic é um sistema de agendamento e gerenciamento de consultas médicas desenvolvido para facilitar a comunicação entre pacientes e médicos de clínicas de pequeno porte.
+
+O sistema tem como objetivo simplificar o agendamento de consultas para os pacientes e oferecer aos médicos uma visão clara e organizada de seus compromissos, pacientes e disponibilidade de atendimento.
+
+A aplicação contará com uma interface para pacientes, uma interface para médicos e um sistema de autenticação que permitirá o acesso às funcionalidades de acordo com o perfil de cada usuário.
+
+## 2. Problema
+
+O gerenciamento de consultas médicas pode se tornar desorganizado quando depende de processos manuais, dificultando o acompanhamento dos agendamentos, das confirmações, dos cancelamentos e da disponibilidade dos médicos.
+
+Além disso, os pacientes precisam de uma maneira simples de consultar seus compromissos e solicitar novos horários.
+
+O SmartClinic pretende centralizar essas informações em um único sistema, tornando o processo mais organizado, acessível e eficiente.
+
+## 3. Objetivo geral
+
+Desenvolver uma aplicação web full stack para agendamento e gerenciamento de consultas médicas, com funcionalidades específicas para pacientes e médicos.
+
+## 4. Objetivos específicos
+
+- Permitir o cadastro e a autenticação de pacientes e médicos.
+- Oferecer um painel individual para cada perfil.
+- Permitir que pacientes consultem seus agendamentos e solicitem novas consultas.
+- Permitir que pacientes acompanhem o status de suas consultas.
+- Permitir que médicos visualizem sua agenda de atendimentos.
+- Organizar consultas por dia, semana e mês.
+- Permitir o gerenciamento de confirmações e cancelamentos.
+- Permitir que médicos gerenciem sua disponibilidade e reorganizem agendamentos.
+- Armazenar os dados de maneira persistente em um banco de dados.
+- Garantir que cada usuário tenha acesso somente às informações autorizadas para seu perfil.
+- Disponibilizar uma interface simples, objetiva e intuitiva.
+
+## 5. Público-alvo
+
+### Pacientes
+
+Pessoas que desejam agendar consultas com médicos específicos, acompanhar seus compromissos e consultar o histórico de atendimentos.
+
+### Médicos
+
+Profissionais que atendem em clínicas de pequeno porte e precisam organizar seus horários, visualizar seus pacientes e gerenciar a agenda de consultas.
+
+## 6. Proposta de valor
+
+O SmartClinic busca unir simplicidade para o paciente e organização para o médico, centralizando o agendamento e o acompanhamento de consultas em uma única aplicação.
+
+## 7. Escopo inicial
+
+A primeira versão do sistema deverá contemplar:
+
+- Cadastro e autenticação de usuários.  &#x20;
+- Separação entre os perfis de paciente e médico.
+- Persistência dos dados em banco de dados.
+- Agendamento e consulta de horários disponíveis.
+- Visualização e gerenciamento de consultas.
+- Controle de status das consultas.
+- Painéis específicos para pacientes e médicos.
+- Validação das regras de negócio no backend.
+
+Funcionalidades adicionais serão avaliadas conforme o desenvolvimento evoluir.
+
+## 8. Tecnologias previstas
+
+- Python: desenvolvimento do backend.
+- SQL: consultas e manipulação de dados.
+- SQLite: banco de dados inicial.
+- API: comunicação entre frontend e backend.
+- HTML: estrutura das páginas.
+- CSS: apresentação visual.
+- JavaScript: interatividade e comunicação com a API.
+- Docker: preparação de um ambiente de execução reproduzível.
+
+O framework de backend, as bibliotecas auxiliares e as ferramentas de teste serão definidos durante o planejamento técnico.
+
+## 9. Metodologia de desenvolvimento
+
+O projeto será desenvolvido incrementalmente, com documentação das decisões técnicas, definição de requisitos, implementação por funcionalidades, testes e versionamento com Git e GitHub.
+
+A inteligência artificial será utilizada como ferramenta de apoio para planejamento, programação, explicação de conceitos, revisão de código e investigação de erros.
+
+As soluções sugeridas serão avaliadas e testadas antes de serem incorporadas ao projeto.
+
 ---
+
+# Banco de Dados
 
 ## Entidades
 
