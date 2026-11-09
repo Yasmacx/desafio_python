@@ -10,8 +10,8 @@ ULTIMA ATUALIZAÇÃO:
 
 ## O QUE FOI AJUSTADO
 
-1 - toda a regra de negocio do sistema
-2 - de programação nada
-3 - como fluxo vai funcionar, como medicos e paciente irao integrar as mesmas funcionalidades para melhor funcinamento da consulta
-4 - a parte de programação
-5 - fazer backend dos medicos
+1 - toda a regra de negocio do sistema, 3 funcionalidade dos medicos
+2 - cadastro medico, verificar crm e procurar dados no banco
+3 - como o medico vai usar as funções
+4 - fazer todo as funções do gereciamento medico ate essa semana
+5 - fazer gerenciamento de disponibilidade
