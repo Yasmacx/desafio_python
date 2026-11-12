@@ -97,3 +97,51 @@ def consultar_medico(termo_busca=None):
         })
 
     return {"sucesso": True, "dados": lista_medicos}
+
+def consultar_dados_medico(palavra_chave=None):
+    conectar = conectar_db()
+    cursor = conectar.cursor()
+
+    if not palavra_chave or str(palavra_chave).strip() == "":
+        cursor.execute("""
+            SELECT id, nome, especialidade, crm
+            FROM medicos
+        """)
+        resultados = cursor.fetchall()
+        conectar.close()
+
+        lista_medicos = []
+        for linha in resultados:
+            lista_medicos.append({
+                "id": linha[0],
+                "nome": linha[1],
+                "especialidade": linha[2],
+                "crm": linha[3]
+            })
+
+        return {"sucesso": True, "quantidade": len(lista_medicos), "dados": lista_medicos}
+
+    termo = f"%{str(palavra_chave).strip()}%"
+
+    cursor.execute("""
+        SELECT id, nome, especialidade, crm
+        FROM medicos
+        WHERE nome LIKE ? OR especialidade LIKE ? OR crm LIKE ? OR id = ?
+    """, (termo, termo, termo, palavra_chave))
+
+    resultados = cursor.fetchall()
+    conectar.close()
+
+    lista_medicos = []
+    for linha in resultados:
+        lista_medicos.append({
+            "id": linha[0],
+            "nome": linha[1],
+            "especialidade": linha[2],
+            "crm": linha[3]
+        })
+
+    if len(lista_medicos) == 0:
+        return {"sucesso": False, "mensagem": "Nenhum médico encontrado para a busca informada.", "dados": []}
+
+    return {"sucesso": True, "quantidade": len(lista_medicos), "dados": lista_medicos}
