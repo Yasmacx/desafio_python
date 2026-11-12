@@ -145,3 +145,51 @@ def consultar_dados_medico(palavra_chave=None):
         return {"sucesso": False, "mensagem": "Nenhum médico encontrado para a busca informada.", "dados": []}
 
     return {"sucesso": True, "quantidade": len(lista_medicos), "dados": lista_medicos}
+
+
+def atualizar_dados_medico(medico_id, novo_nome=None, nova_especialidade=None, novo_crm=None):
+    conectar = conectar_db()
+    cursor = conectar.cursor()
+
+    cursor.execute("""
+        SELECT id, nome, especialidade, crm
+        FROM medicos
+        WHERE id = ?
+    """, (medico_id,))
+    medico_atual = cursor.fetchone()
+
+    if not medico_atual:
+        conectar.close()
+        return {"sucesso": False, "mensagem": "Médico não encontrado no sistema."}
+
+    nome_final = novo_nome.strip() if novo_nome and str(novo_nome).strip() != "" else medico_atual[1]
+    especialidade_final = nova_especialidade.strip() if nova_especialidade and str(nova_especialidade).strip() != "" else medico_atual[2]
+    crm_final = novo_crm.strip() if novo_crm and str(novo_crm).strip() != "" else medico_atual[3]
+
+    if crm_final != medico_atual[3]:
+        cursor.execute("SELECT id FROM medicos WHERE crm = ? AND id != ?", (crm_final, medico_id))
+        crm_duplicado = cursor.fetchone()
+
+        if crm_duplicado:
+            conectar.close()
+            return {"sucesso": False, "mensagem": "O novo CRM informado já pertence a outro médico."}
+
+    cursor.execute("""
+        UPDATE medicos
+        SET nome = ?, especialidade = ?, crm = ?
+        WHERE id = ?
+    """, (nome_final, especialidade_final, crm_final, medico_id))
+
+    conectar.commit()
+    conectar.close()
+
+    return {
+        "sucesso": True,
+        "mensagem": "Dados do médico atualizados com sucesso.",
+        "dados": {
+            "id": medico_id,
+            "nome": nome_final,
+            "especialidade": especialidade_final,
+            "crm": crm_final
+        }
+    }
