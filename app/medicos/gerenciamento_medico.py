@@ -151,29 +151,48 @@ def atualizar_dados_medico(medico_id, novo_nome=None, nova_especialidade=None, n
     conectar = conectar_db()
     cursor = conectar.cursor()
 
+    # 1. Verificar se o médico existe
     cursor.execute("""
         SELECT id, nome, especialidade, crm
         FROM medicos
         WHERE id = ?
     """, (medico_id,))
+
     medico_atual = cursor.fetchone()
 
     if not medico_atual:
         conectar.close()
-        return {"sucesso": False, "mensagem": "Médico não encontrado no sistema."}
+        return {
+            "sucesso": False,
+            "mensagem": "Médico não encontrado no sistema."
+        }
 
-    nome_final = novo_nome.strip() if novo_nome and str(novo_nome).strip() != "" else medico_atual[1]
-    especialidade_final = nova_especialidade.strip() if nova_especialidade and str(nova_especialidade).strip() != "" else medico_atual[2]
-    crm_final = novo_crm.strip() if novo_crm and str(novo_crm).strip() != "" else medico_atual[3]
+    # 2. Definir os novos dados ou manter os atuais
+    nome_final = novo_nome.strip() if isinstance(novo_nome, str) and novo_nome.strip() else medico_atual[1]
 
+    especialidade_final = nova_especialidade.strip() if isinstance(nova_especialidade, str) and nova_especialidade.strip() else medico_atual[2]
+
+    crm_final = novo_crm.strip() if isinstance(novo_crm, str) and novo_crm.strip() else medico_atual[3]
+
+    # 3. Verificar se o novo CRM já pertence a outro médico
     if crm_final != medico_atual[3]:
-        cursor.execute("SELECT id FROM medicos WHERE crm = ? AND id != ?", (crm_final, medico_id))
+
+        cursor.execute("""
+            SELECT id
+            FROM medicos
+            WHERE crm = ? AND id != ?
+        """, (crm_final, medico_id))
+
         crm_duplicado = cursor.fetchone()
 
         if crm_duplicado:
             conectar.close()
-            return {"sucesso": False, "mensagem": "O novo CRM informado já pertence a outro médico."}
+            return {
+                "sucesso": False,
+                "mensagem": "O novo CRM informado já pertence a outro médico."
+            }
 
+    # 4. Atualizar os dados no banco
     cursor.execute("""
         UPDATE medicos
         SET nome = ?, especialidade = ?, crm = ?
@@ -183,6 +202,7 @@ def atualizar_dados_medico(medico_id, novo_nome=None, nova_especialidade=None, n
     conectar.commit()
     conectar.close()
 
+    # 5. Retornar confirmação
     return {
         "sucesso": True,
         "mensagem": "Dados do médico atualizados com sucesso.",
